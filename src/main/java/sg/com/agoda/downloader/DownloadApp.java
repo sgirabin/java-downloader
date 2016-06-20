@@ -18,7 +18,7 @@ public class DownloadApp {
 
     final static Logger logger = Logger.getLogger(DownloadApp.class);
  
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, Exception {
         ApplicationContext context = new ClassPathXmlApplicationContext("spring-context.xml");
         
         DownloadController downloadController = context.getBean(DownloadController.class);
