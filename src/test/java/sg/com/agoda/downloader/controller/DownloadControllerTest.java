@@ -5,21 +5,18 @@ package sg.com.agoda.downloader.controller;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import sg.com.agoda.downloader.config.DownloadConfig;
+import sg.com.agoda.downloader.job.DownloadJob;
 
 /**
  *
  * @author isakrabin
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "classpath*:spring-context-test.xml")
 public class DownloadControllerTest {
 
     private DownloadController downloadController;
