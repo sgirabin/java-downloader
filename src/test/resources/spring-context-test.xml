@@ -18,7 +18,7 @@
         <property name="WaitForTasksToCompleteOnShutdown" value="true" />
     </bean>
     
-    <bean id="downloadController" class="sg.com.agoda.downloader.controller.DownloadController">
+    <bean id="downloadController" class="sg.com.agoda.downloader.controller.DownloadController" scope="prototype">
         <constructor-arg name="maxDownload" value="5"/>
         <property name="downloadJobExecutor" ref="downloadJobExecutor"/>
     </bean>

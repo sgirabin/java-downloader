@@ -27,17 +27,19 @@ public class DownloadControllerTest {
     public void shouldInitializeDownloadController() {
         Assert.assertNotNull(downloadController);
         Assert.assertEquals(5, downloadController.getMaxDownload());
+        Assert.assertEquals(0, downloadController.getDownloadList().size());
         Assert.assertNotNull(downloadController.getDownloadJobExecutor());
     }
 
     @Test
     public void shouldAddToDownloadListWhenTotalDownloadLessThanMaxDownload() {
-        Assert.assertEquals(0, downloadController.getDownloadList().size());
+        int currentSize = downloadController.getDownloadList().size();
+        Assert.assertEquals(0, currentSize);
 
         DownloadConfig mockDownloadConfig = Mockito.mock(DownloadConfig.class);
         downloadController.addDownloadList(mockDownloadConfig);
 
-        Assert.assertEquals(1, downloadController.getDownloadList().size());
+        Assert.assertEquals(currentSize + 1, downloadController.getDownloadList().size());
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
@@ -53,21 +55,30 @@ public class DownloadControllerTest {
 
     @Test
     public void shouldStartDownloadWhenSizeGreaterThanZero() {
-
+        DownloadConfig mockDownloadConfig = Mockito.mock(DownloadConfig.class);
+        downloadController.addDownloadList(mockDownloadConfig);
+        downloadController.start();
     }
 
     @Test
-    public void shouldStopDownload() {
-
+    public void shouldStopDownload() throws InterruptedException {
+        DownloadConfig mockDownloadConfig = Mockito.mock(DownloadConfig.class);
+        downloadController.addDownloadList(mockDownloadConfig);
+        downloadController.start();
+        downloadController.stop();
     }
 
     @Test
     public void shouldReturnTrueWhenThereIsActiveDownload() {
-
+        DownloadConfig mockDownloadConfig = Mockito.mock(DownloadConfig.class);
+        downloadController.addDownloadList(mockDownloadConfig);
+        downloadController.start();
+        Assert.assertTrue(downloadController.hasActiveDownload());
+        downloadController.stop();
     }
 
     @Test
     public void shouldReturnFalseWhenThereIsNoActiveDownload() {
-
+        Assert.assertFalse(downloadController.hasActiveDownload());
     }
 }
