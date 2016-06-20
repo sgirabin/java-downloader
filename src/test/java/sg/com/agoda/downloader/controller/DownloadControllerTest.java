@@ -23,7 +23,7 @@ import sg.com.agoda.downloader.config.DownloadConfig;
 public class DownloadControllerTest {
 
     private DownloadController downloadController;
-    
+
     @Mock
     private ThreadPoolTaskExecutor mockThreadPoolTaskExecutor;
 
@@ -32,7 +32,7 @@ public class DownloadControllerTest {
         downloadController = new DownloadController(5);
         downloadController.setDownloadJobExecutor(mockThreadPoolTaskExecutor);
     }
-    
+
     @Test
     public void shouldInitializeDownloadController() {
         Assert.assertEquals(0, downloadController.getDownloadList().size());
@@ -61,8 +61,13 @@ public class DownloadControllerTest {
         downloadController.addDownloadList(mockDownloadConfig);
     }
 
+    @Test(expected = Exception.class)
+    public void shouldNotStartDownloadWhenDownloadListIsEmpty() throws Exception {
+        downloadController.start();
+    }
+
     @Test
-    public void shouldStartDownloadWhenSizeGreaterThanZero() {
+    public void shouldStartDownloadWhenSizeGreaterThanZero() throws Exception {
         DownloadConfig mockDownloadConfig = Mockito.mock(DownloadConfig.class);
         downloadController.addDownloadList(mockDownloadConfig);
         downloadController.start();
@@ -70,9 +75,6 @@ public class DownloadControllerTest {
 
     @Test
     public void shouldStopDownload() throws InterruptedException {
-        DownloadConfig mockDownloadConfig = Mockito.mock(DownloadConfig.class);
-        downloadController.addDownloadList(mockDownloadConfig);
-        downloadController.start();
         downloadController.stop();
     }
 

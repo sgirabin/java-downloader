@@ -61,7 +61,11 @@ public class DownloadController {
         return downloadList;
     }
 
-    public void start() {
+    public void start() throws Exception {
+        if (downloadList.isEmpty()) {
+            throw new Exception("Download list is empty.");
+        }
+        
         downloadList.stream().forEach((config) -> {
             try {
                 DownloadJob downloadJob = new DownloadJob(config);
