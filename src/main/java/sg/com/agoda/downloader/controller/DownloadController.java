@@ -25,17 +25,12 @@ public class DownloadController {
     @Autowired
     private ThreadPoolTaskExecutor downloadJobExecutor;
 
-    private int maxDownload;
+    private int maxDownload = 5;
 
     private final List<DownloadConfig> downloadList = new ArrayList<>();
 
-    public DownloadController() {
-    }
-
     public DownloadController(int maxDownload) {
         this.maxDownload = maxDownload;
-        this.downloadJobExecutor.setMaxPoolSize(maxDownload);
-        this.downloadJobExecutor.setWaitForTasksToCompleteOnShutdown(true);
     }
 
     public ThreadPoolTaskExecutor getDownloadJobExecutor() {
@@ -45,7 +40,7 @@ public class DownloadController {
     public void setDownloadJobExecutor(ThreadPoolTaskExecutor downloadJobExecutor) {
         this.downloadJobExecutor = downloadJobExecutor;
     }
-
+    
     public int getMaxDownload() {
         return maxDownload;
     }
