@@ -5,13 +5,11 @@ package sg.com.agoda.downloader.controller;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import sg.com.agoda.downloader.config.DownloadConfig;
-import sg.com.agoda.downloader.job.DownloadJob;
 
 /**
  *
