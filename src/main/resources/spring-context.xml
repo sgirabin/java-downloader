@@ -10,12 +10,5 @@
 ">
     <context:annotation-config />
     <context:component-scan base-package="sg.com.agoda.downloader"/>
-    
-    <bean id="downloadJobExecutor"
-          class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
-        <property name="corePoolSize" value="1" />
-        <property name="maxPoolSize" value="5" />
-        <property name="WaitForTasksToCompleteOnShutdown" value="true" />
-        
-    </bean>    
+
 </beans>

@@ -6,8 +6,10 @@ package sg.com.agoda.downloader.controller;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.MockitoAnnotations;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import sg.com.agoda.downloader.config.DownloadConfig;
@@ -20,15 +22,21 @@ import sg.com.agoda.downloader.config.DownloadConfig;
 @ContextConfiguration(locations = "classpath*:spring-context-test.xml")
 public class DownloadControllerTest {
 
-    @Autowired
     private DownloadController downloadController;
+    
+    @Mock
+    private ThreadPoolTaskExecutor mockThreadPoolTaskExecutor;
 
+    public DownloadControllerTest() {
+        MockitoAnnotations.initMocks(this);
+        downloadController = new DownloadController(5);
+        downloadController.setDownloadJobExecutor(mockThreadPoolTaskExecutor);
+    }
+    
     @Test
     public void shouldInitializeDownloadController() {
-        Assert.assertNotNull(downloadController);
-        Assert.assertEquals(5, downloadController.getMaxDownload());
         Assert.assertEquals(0, downloadController.getDownloadList().size());
-        Assert.assertNotNull(downloadController.getDownloadJobExecutor());
+        Assert.assertEquals(5, downloadController.getMaxDownload());
     }
 
     @Test
@@ -70,15 +78,13 @@ public class DownloadControllerTest {
 
     @Test
     public void shouldReturnTrueWhenThereIsActiveDownload() {
-        DownloadConfig mockDownloadConfig = Mockito.mock(DownloadConfig.class);
-        downloadController.addDownloadList(mockDownloadConfig);
-        downloadController.start();
+        Mockito.when(mockThreadPoolTaskExecutor.getActiveCount()).thenReturn(1);
         Assert.assertTrue(downloadController.hasActiveDownload());
-        downloadController.stop();
     }
 
     @Test
     public void shouldReturnFalseWhenThereIsNoActiveDownload() {
+        Mockito.when(mockThreadPoolTaskExecutor.getActiveCount()).thenReturn(0);
         Assert.assertFalse(downloadController.hasActiveDownload());
     }
 }
