@@ -43,4 +43,13 @@
                 <exec.executable>java</exec.executable>
             </properties>
         </action>
+        <action>
+            <actionName>CUSTOM-clean install dependency:copy-dependencies</actionName>
+            <displayName>clean install dependency:copy-dependencies</displayName>
+            <goals>
+                <goal>clean</goal>
+                <goal>install</goal>
+                <goal>dependency:copy-dependencies</goal>
+            </goals>
+        </action>
     </actions>

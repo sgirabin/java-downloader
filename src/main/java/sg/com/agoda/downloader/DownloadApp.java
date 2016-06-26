@@ -26,37 +26,17 @@ public class DownloadApp {
 
     final static Logger logger = Logger.getLogger(DownloadApp.class);
 
-    final static String APP_CONFIG = "settings.xml";
-
-    private Marshaller marshaller;
     private Unmarshaller unmarshaller;
-
-    public void setMarshaller(Marshaller marshaller) {
-        this.marshaller = marshaller;
-    }
 
     public void setUnmarshaller(Unmarshaller unmarshaller) {
         this.unmarshaller = unmarshaller;
-    }
-
-    public void saveSettings(DownloadSetting appConfig) throws IOException {
-
-        FileOutputStream os = null;
-        try {
-            os = new FileOutputStream(APP_CONFIG);
-            this.marshaller.marshal(appConfig, new StreamResult(os));
-        } finally {
-            if (os != null) {
-                os.close();
-            }
-        }
     }
 
     public DownloadSetting loadSettings(String filename) throws FileNotFoundException, IOException {
         FileInputStream is = null;
         DownloadSetting setting = null;
         try {
-            is = new FileInputStream(APP_CONFIG);
+            is = new FileInputStream(filename);
             setting = (DownloadSetting) this.unmarshaller.unmarshal(new StreamSource(is));
         } finally {
             if (is != null) {

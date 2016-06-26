@@ -27,7 +27,6 @@
     </bean>    
     
     <bean id="downloadApplication" class="sg.com.agoda.downloader.DownloadApp">
-        <property name="marshaller" ref="castorMarshaller" />
         <property name="unmarshaller" ref="castorMarshaller" />
     </bean>
     <bean id="castorMarshaller" class="org.springframework.oxm.castor.CastorMarshaller">
