@@ -13,7 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import org.apache.log4j.Logger;
-import sg.com.agoda.downloader.config.DownloadConfig;
+import sg.com.agoda.downloader.model.DownloadSite;
 
 /**
  *
@@ -23,21 +23,21 @@ public class DownloadJob implements Runnable {
     
     final static Logger logger = Logger.getLogger(DownloadJob.class);
     
-    private final DownloadConfig downloadConfig;
+    private final DownloadSite downloadSite;
     
     private final URL url;
     private final ReadableByteChannel rbc;
     private final FileOutputStream fos;
     
-    public DownloadJob(DownloadConfig downloadConfig) throws MalformedURLException, IOException {
-        this.downloadConfig = downloadConfig;
-        this.url = new URL(downloadConfig.getDownloadUrl());
+    public DownloadJob(DownloadSite downloadSite) throws MalformedURLException, IOException {
+        this.downloadSite = downloadSite;
+        this.url = new URL(downloadSite.getDownloadUrl());
         this.rbc = Channels.newChannel(url.openStream());
-        this.fos = new FileOutputStream(downloadConfig.getOutputFile());
+        this.fos = new FileOutputStream(downloadSite.getOutputFile());
     }
     
-    public DownloadConfig getDownloadConfig() {
-        return downloadConfig;
+    public DownloadSite getDownloadSite() {
+        return downloadSite;
     }
     
     @Override
@@ -47,7 +47,7 @@ public class DownloadJob implements Runnable {
             logger.info("Downloaded size: " + fos.getChannel().size());
         } catch (IOException ex) {
             logger.error(ex.getMessage(), ex);
-            Path path = Paths.get(downloadConfig.getOutputFile());
+            Path path = Paths.get(downloadSite.getOutputFile());
             try {
                 Files.delete(path);
             } catch (IOException ex1) {

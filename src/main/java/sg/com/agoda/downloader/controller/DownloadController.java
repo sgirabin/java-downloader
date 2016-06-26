@@ -10,7 +10,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Controller;
-import sg.com.agoda.downloader.config.DownloadConfig;
+import sg.com.agoda.downloader.model.DownloadSite;
 import sg.com.agoda.downloader.job.DownloadJob;
 
 /**
@@ -27,7 +27,7 @@ public class DownloadController {
 
     private int maxDownload = 5;
 
-    private final List<DownloadConfig> downloadList = new ArrayList<>();
+    private final List<DownloadSite> downloadList = new ArrayList<>();
 
     public DownloadController(int maxDownload) {
         this.maxDownload = maxDownload;
@@ -49,7 +49,7 @@ public class DownloadController {
         this.maxDownload = maxDownload;
     }
 
-    public void addDownloadList(DownloadConfig downloadConfig) {
+    public void addDownloadList(DownloadSite downloadConfig) {
         if (downloadList.size() < maxDownload) {
             this.downloadList.add(downloadConfig);
         } else {
@@ -57,7 +57,7 @@ public class DownloadController {
         }
     }
 
-    public List<DownloadConfig> getDownloadList() {
+    public List<DownloadSite> getDownloadList() {
         return downloadList;
     }
 
@@ -77,7 +77,9 @@ public class DownloadController {
     }
 
     public void stop() {
-        downloadJobExecutor.shutdown();
+        if (hasActiveDownload()) {
+             downloadJobExecutor.shutdown();
+        }
     }
 
     public boolean hasActiveDownload() {

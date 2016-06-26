@@ -9,7 +9,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
-import sg.com.agoda.downloader.config.DownloadConfig;
+import sg.com.agoda.downloader.model.DownloadSite;
 
 /**
  *
@@ -39,7 +39,7 @@ public class DownloadControllerTest {
         int currentSize = downloadController.getDownloadList().size();
         Assert.assertEquals(0, currentSize);
 
-        DownloadConfig mockDownloadConfig = Mockito.mock(DownloadConfig.class);
+        DownloadSite mockDownloadConfig = Mockito.mock(DownloadSite.class);
         downloadController.addDownloadList(mockDownloadConfig);
 
         Assert.assertEquals(currentSize + 1, downloadController.getDownloadList().size());
@@ -47,7 +47,7 @@ public class DownloadControllerTest {
 
     @Test(expected = IndexOutOfBoundsException.class)
     public void shouldThrowExceptionWhenMaxDownloadReach() {
-        DownloadConfig mockDownloadConfig = Mockito.mock(DownloadConfig.class);
+        DownloadSite mockDownloadConfig = Mockito.mock(DownloadSite.class);
         downloadController.addDownloadList(mockDownloadConfig);
         downloadController.addDownloadList(mockDownloadConfig);
         downloadController.addDownloadList(mockDownloadConfig);
@@ -63,13 +63,13 @@ public class DownloadControllerTest {
 
     @Test
     public void shouldStartDownloadWhenSizeGreaterThanZero() throws Exception {
-        DownloadConfig mockDownloadConfig = Mockito.mock(DownloadConfig.class);
+        DownloadSite mockDownloadConfig = Mockito.mock(DownloadSite.class);
         downloadController.addDownloadList(mockDownloadConfig);
         downloadController.start();
     }
 
     @Test
-    public void shouldStopDownload() throws InterruptedException {
+    public void shouldStopDownloadWhenHasActiveDownload() throws InterruptedException {
         downloadController.stop();
     }
 

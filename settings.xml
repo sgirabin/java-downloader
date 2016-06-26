@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<download-setting>
+    <download-job>2</download-job>
+    <download-list>
+        <protocol>http</protocol>
+        <hostname>search.maven.org</hostname>
+        <port>80</port>
+        <targetFile>remotecontent?filepath=org/mockito/mockito-core/2.0.71-beta/mockito-core-2.0.71-beta.jar</targetFile>
+        <outputFile>mockito-core-2.0.71-beta.jar</outputFile>
+        <needAuthentication>false</needAuthentication>
+    </download-list>
+    <download-list>
+        <protocol>http</protocol>
+        <hostname>search.maven.org</hostname>
+        <port>80</port>
+        <targetFile>remotecontent?filepath=org/mockito/mockito-all/2.0.2-beta/mockito-all-2.0.2-beta.jar</targetFile>
+        <outputFile>mockito-all-2.0.2-beta.jar</outputFile>
+        <needAuthentication>false</needAuthentication>
+    </download-list>
+</download-setting>

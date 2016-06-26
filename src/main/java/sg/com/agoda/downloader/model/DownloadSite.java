@@ -1,7 +1,7 @@
 /*
  * Copyright @2016 by Isak Rabin
  */
-package sg.com.agoda.downloader.config;
+package sg.com.agoda.downloader.model;
 
 import sg.com.agoda.downloader.common.StringUtil;
 import sg.com.agoda.downloader.constant.SupportedProtocol;
@@ -10,7 +10,7 @@ import sg.com.agoda.downloader.constant.SupportedProtocol;
  *
  * @author isakrabin
  */
-public class DownloadConfig {
+public class DownloadSite {
 
     private static final int MAX_PORT_NUMBER = 65535;
 
@@ -23,7 +23,10 @@ public class DownloadConfig {
     private String password;
     private boolean needAuthentication;
 
-    public DownloadConfig(String protocol, String hostname, Integer port, String targetFile, String outputFile) {
+    public DownloadSite() {
+    }
+
+    public DownloadSite(String protocol, String hostname, Integer port, String targetFile, String outputFile) {
         if (isValidProtocol(protocol)) {
             this.protocol = protocol;
         }
@@ -43,9 +46,11 @@ public class DownloadConfig {
         if (isValidOutputFile(outputFile)) {
             this.outputFile = outputFile;
         }
+        
+        this.needAuthentication = false;
     }
 
-    public DownloadConfig(String protocol, String hostname, Integer port, String username, String password, String targetFile, String outputFile) {
+    public DownloadSite(String protocol, String hostname, Integer port, String username, String password, String targetFile, String outputFile) {
         this(protocol, hostname, port, targetFile, outputFile);
         this.username = username;
         this.password = password;
