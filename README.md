@@ -57,11 +57,13 @@
         </download-list>
     </download-setting>
     ~~~~  
+
+    Description of "settings.xml": 
     
     | FIELD         | DESCRIPTION                   | REQUIRED  |
-    | ------------- |:-----------------------------:| ---------:|
-    | download-job  |  Number of download job       | Yes       | 
-    | protocol      |  http, https, ftp, sftp (required)| Yes | 
+    | ------------- |-----------------------------| :---------:|
+    | download-job  | Number of download job       | Yes       | 
+    | protocol      | http, https, ftp, sftp (required)| Yes | 
     | hostname|  server name (required)| Yes | 
     | port|  server port (required)| Yes | 
     | targetFile|  file to be downloaded (include path) (required)| Yes | 
