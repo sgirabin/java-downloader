@@ -1,12 +1,47 @@
-# Run java-downloader
+# About Java Downloader
 
+  Efficient Java Application to download large file.
+  Technologies stack:
+    - Spring 4
+    - Castor
+    - Xerces
+
+  What make java downloader different:
+  
+  1. Use of Non-Blocking I/O from java.nio package
+     
+     Benefits Java NIO's non-blocking mode enables a thread to request reading data from a channel, and only get what is currently available, or nothing at all.
+     When there is no data is currently available, rather remain blocked until data becomes available for reading, the thread can go on with something else.
+    
+    ~~~~ 
+        @Override
+        public void run() {
+            try {
+                fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+                logger.info("Downloaded size: " + fos.getChannel().size());
+            } catch (IOException ex) {
+                logger.error(ex.getMessage(), ex);
+                Path path = Paths.get(downloadSite.getOutputFile());
+                try {
+                    Files.delete(path);
+                } catch (IOException ex1) {
+                    logger.error(ex.getMessage(), ex1);
+                }
+            }
+        }
+    ~~~~ 
+  
+  2. Support Concurrent download up to 5 sites (configurable)
+
+
+# Run java-downloader
 
 1. Download binary version from this URL
    https://github.com/sgirabin/java-downloader/blob/master/bin/download-app.zip
 
    Save it into your working directory.
 
-2. Unzip download-appzip to /download-app
+2. Unzip download-appzip
 
 3. Go to unzipped folder 
 
