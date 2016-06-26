@@ -3,7 +3,6 @@
  */
 package sg.com.agoda.downloader.model;
 
-import sg.com.agoda.downloader.model.DownloadSite;
 import org.junit.Assert;
 import org.junit.Test;
 

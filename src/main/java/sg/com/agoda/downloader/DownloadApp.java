@@ -5,14 +5,11 @@ package sg.com.agoda.downloader;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.oxm.Marshaller;
 import org.springframework.oxm.Unmarshaller;
 import sg.com.agoda.downloader.config.DownloadSetting;
 import sg.com.agoda.downloader.config.AppConfig;
