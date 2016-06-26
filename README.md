@@ -1,13 +1,13 @@
 # About Java Downloader
 
-  Efficient Java Application to download large file.
+Efficient Java Application to download large file.
 
-  Technologies stack:
-  * Spring 4
-  * Castor
-  * Xerces
-
-  What make java downloader different:
+Technologies stack:
+    * Spring 4
+    * Castor
+    * Xerces
+ 
+What make java downloader different:
   
   1. Use of Non-Blocking I/O from java.nio package
      
