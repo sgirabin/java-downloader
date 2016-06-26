@@ -3,9 +3,9 @@
   Efficient Java Application to download large file.
 
   Technologies stack:
-  ⋅⋅* Spring 4
-  ⋅⋅* Castor
-  ⋅⋅* Xerces
+  * Spring 4
+  * Castor
+  * Xerces
 
   What make java downloader different:
   
