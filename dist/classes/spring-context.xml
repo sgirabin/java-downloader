@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+            http://www.springframework.org/schema/beans 
+            http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+            http://www.springframework.org/schema/context 
+            http://www.springframework.org/schema/context/spring-context-4.2.xsd
+">
+    <context:annotation-config />
+    <context:component-scan base-package="sg.com.agoda.downloader"/>
+    
+    <context:property-placeholder 
+        location="classpath*:**/application.properties" 
+        ignore-resource-not-found="false" ignore-unresolvable="false" file-encoding="utf-8" />
+
+    <bean id="downloadJobExecutor"
+          class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <property name="maxPoolSize" value="${download.max.input}" />
+        <property name="WaitForTasksToCompleteOnShutdown" value="true" />
+    </bean>
+    
+    <bean id="downloadController" class="sg.com.agoda.downloader.controller.DownloadController" scope="prototype">
+        <constructor-arg name="maxDownload" value="${download.max.input}"/>
+        <property name="downloadJobExecutor" ref="downloadJobExecutor"/>
+    </bean>    
+    
+    <bean id="downloadApplication" class="sg.com.agoda.downloader.DownloadApp">
+        <property name="marshaller" ref="castorMarshaller" />
+        <property name="unmarshaller" ref="castorMarshaller" />
+    </bean>
+    <bean id="castorMarshaller" class="org.springframework.oxm.castor.CastorMarshaller">
+        <property name="mappingLocation" value="classpath:mapping.xml" />
+        <property name="targetClasses" value="sg.com.agoda.downloader.config.AppConfig" />
+    </bean>
+    
+</beans>
